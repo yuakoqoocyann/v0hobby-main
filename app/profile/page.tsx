@@ -513,95 +513,61 @@ export default function ProfilePage() {
         </div>
       </div>
 
-      <div className="min-h-screen">
-        {currentView === "posts" && (
-          <div className="divide-y divide-gray-100">
-            {!profile.type && (
-              <div className="p-4 bg-blue-50 border-b">
-                <p className="text-sm text-blue-800 mb-2">まだ趣味診断を受けていません</p>
-                <Button size="sm" onClick={() => setCurrentView("test")}>
-                  診断テストを受ける
-                </Button>
-              </div>
-            )}
-            {SAMPLE_POSTS.map((post) => (
-              <div key={post.id} className="p-4 hover:bg-gray-50 transition-colors">
-                <div className="flex gap-3">
-                  <Avatar className="w-10 h-10">
-                    <div className="w-full h-full bg-gradient-to-br from-blue-500 to-purple-600 text-white flex items-center justify-center text-sm font-semibold overflow-hidden rounded-full">
-                      {renderAvatar(profile.avatar, "medium")}
-                    </div>
-                  </Avatar>
-                  <div className="flex-1">
-                    <div className="flex items-center gap-2 mb-1">
-                      <span className="font-bold text-sm">{profile.name}</span>
-                      <span className="text-gray-500 text-sm">@{profile.name.toLowerCase().replace(/\s+/g, "")}</span>
-                      <span className="text-gray-500 text-sm">·</span>
-                      <span className="text-gray-500 text-sm">{post.timestamp}</span>
-                    </div>
-                    <p className="text-sm mb-3">{post.content}</p>
-                    <div className="flex gap-6 text-gray-500">
-                      <button className="flex items-center gap-1 hover:text-blue-500 transition-colors">
-                        <ReplyIcon />
-                        <span className="text-xs">{post.replies}</span>
-                      </button>
-                      <button className="flex items-center gap-1 hover:text-green-500 transition-colors">
-                        <RetweetIcon />
-                        <span className="text-xs">{post.retweets}</span>
-                      </button>
-                      <button className="flex items-center gap-1 hover:text-red-500 transition-colors">
-                        <HeartIcon />
-                        <span className="text-xs">{post.likes}</span>
-                      </button>
-                    </div>
-                  </div>
+
+export default function HobbyTest() {
+  const [answers, setAnswers] = useState<{ [key: number]: number }>({})
+
+  const handleAnswer = (index: number, value: number) => {
+    setAnswers((prev) => ({ ...prev, [index]: value }))
+  }
+
+  const calculate = () => {
+    console.log("診断結果", answers)
+  }
+
+  return (
+    <div className="p-4">
+      <Card>
+        <CardContent className="p-4">
+          <h2 className="font-semibold mb-2">趣味診断テスト（全40問）</h2>
+          <p className="text-xs text-muted-foreground mb-3">
+            5段階で答えてください（賛成 → 反対）
+          </p>
+
+          <div className="space-y-3 max-h-[60vh] overflow-auto pr-2">
+            {QUESTIONS.map((q, i) => (
+              <div key={i} className="mb-2">
+                <p className="text-sm font-medium">{`Q${i + 1}. ${q}`}</p>
+                <div className="flex items-center justify-between mt-2 px-1">
+                  <span className="text-xs text-gray-500">反対</span>
+                  <Slider
+                    defaultValue={[3]}
+                    min={1}
+                    max={5}
+                    step={1}
+                    className="w-3/4 custom-slider"
+                    onValueChange={(val) => handleAnswer(i + 1, val[0])}
+                  />
+                  <span className="text-xs text-gray-500">賛成</span>
                 </div>
               </div>
             ))}
           </div>
-        )}
 
-        {currentView === "test" && (
-          <div className="p-4">
-            <Card>
-              <CardContent className="p-4">
-                <h2 className="font-semibold mb-2">趣味診断テスト（全40問）</h2>
-                <p className="text-xs text-muted-foreground mb-3">5段階で答えてください（賛成 → 反対）</p>
-                <div className="space-y-3 max-h-[60vh] overflow-auto pr-2">
-                  {QUESTIONS.map((q, i) => (
-                    <div key={i} className="mb-2">
-                      <p className="text-sm font-medium">{`Q${i + 1}. ${q}`}</p>
-                      <div className="flex gap-1 mt-2">
-                        {[
-                          { value: "1", label: "賛成" },
-                          { value: "2", label: "やや賛成" },
-                          { value: "3", label: "どちらでもない" },
-                          { value: "4", label: "やや反対" },
-                          { value: "5", label: "反対" },
-                        ].map(({ value, label }) => (
-                          <Button
-                            key={value}
-                            variant={answers[i + 1] === value ? "default" : "outline"}
-                            size="sm"
-                            className="flex-1 text-xs h-8"
-                            onClick={() => handleAnswer(i + 1, value)}
-                          >
-                            {label}
-                          </Button>
-                        ))}
-                      </div>
-                    </div>
-                  ))}
-                </div>
-                <div className="flex justify-center mt-4">
-                  <Button onClick={calculate} disabled={Object.keys(answers).length < 40}>
-                    診断結果を見る
-                  </Button>
-                </div>
-              </CardContent>
-            </Card>
+          <div className="flex justify-center mt-4">
+            <Button
+              onClick={calculate}
+              disabled={Object.keys(answers).length < QUESTIONS.length}
+            >
+              診断結果を見る
+            </Button>
           </div>
-        )}
+        </CardContent>
+      </Card>
+    </div>
+  )
+}
+
 
         {currentView === "media" && (
           <div className="p-4 text-center text-gray-500">
