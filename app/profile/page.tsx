@@ -1,8 +1,6 @@
 "use client"
 
 import type React from "react"
-import { useState, useEffect } from "react"
-import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Slider } from "@/components/ui/slider"
 import { Input } from "@/components/ui/input"
@@ -12,8 +10,6 @@ import { Textarea } from "@/components/ui/textarea"
 import { useState } from "react"
 import { useRouter } from "next/navigation"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { Slider } from "@/components/ui/slider"
 import { Progress } from "@/components/ui/progress"
 
 const QUESTIONS = [
@@ -534,22 +530,22 @@ export default function HobbyTest() {
 
   const sliderLabels = ["賛成", "やや賛成", "どちらでもない", "やや反対", "反対"]
 
-export default function DiagnosisPage() {
-  const [answers, setAnswers] = useState<number[]>(new Array(questions.length).fill(2))
-  const router = useRouter()
+  export default function DiagnosisPage() {
+    const [answers, setAnswers] = useState<number[]>(new Array(questions.length).fill(2))
+    const router = useRouter()
 
-  const handleSliderChange = (questionIndex: number, value: number[]) => {
-    const newAnswers = [...answers]
-    newAnswers[questionIndex] = value[0]
-    setAnswers(newAnswers)
+    const handleSliderChange = (questionIndex: number, value: number[]) => {
+      const newAnswers = [...answers]
+      newAnswers[questionIndex] = value[0]
+      setAnswers(newAnswers)
   }
 
-  const handleSubmit = () => {
-    localStorage.setItem("hobbyDiagnosisAnswers", JSON.stringify(answers))
-    router.push("/results")
+    const handleSubmit = () => {
+      localStorage.setItem("hobbyDiagnosisAnswers", JSON.stringify(answers))
+      router.push("/results")
   }
 
-  const answeredQuestions = answers.filter((answer) => answer !== 2).length
+    const answeredQuestions = answers.filter((answer) => answer !== 2).length
   const progress = (answeredQuestions / questions.length) * 100
 
   return (
