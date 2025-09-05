@@ -216,3 +216,39 @@ body {
 }
 
 
+/* ハート型つまみ */
+.custom-slider .thumb {
+  width: 20px;
+  height: 20px;
+  position: relative;
+  background: red;
+  transform: rotate(-45deg);
+  margin-top: -8px; /* バー中央に配置 */
+  border-radius: 0;
+  box-shadow: none;
+  border: none;
+  cursor: grab;
+}
+
+/* 上の丸 */
+.custom-slider .thumb::before,
+.custom-slider .thumb::after {
+  content: "";
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background: red;
+  border-radius: 50%;
+}
+
+/* 左の丸 */
+.custom-slider .thumb::before {
+  top: -10px;
+  left: 0;
+}
+
+/* 右の丸 */
+.custom-slider .thumb::after {
+  left: 10px;
+  top: 0;
+}
