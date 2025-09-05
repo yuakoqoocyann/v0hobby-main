@@ -531,7 +531,7 @@ export function HobbyTest() {
   const sliderLabels = ["賛成", "やや賛成", "どちらでもない", "やや反対", "反対"]
 
   export function DiagnosisPage() {
-    const [answers, setAnswers] = useState<number[]>(new Array(questions.length).fill(2))
+    const [answers, setAnswers] = useState<number[]>(new Array(QESTIONS.length).fill(2))
     const router = useRouter()
 
     const handleSliderChange = (questionIndex: number, value: number[]) => {
@@ -546,7 +546,7 @@ export function HobbyTest() {
   }
 
     const answeredQuestions = answers.filter((answer) => answer !== 2).length
-  const progress = (answeredQuestions / questions.length) * 100
+  const progress = (answeredQuestions / QESTIONS.length) * 100
 
   return (
     <div className="min-h-screen bg-background p-4">
@@ -557,7 +557,7 @@ export function HobbyTest() {
             <div className="space-y-2">
               <div className="flex justify-between text-sm text-muted-foreground">
                 <span>
-                  {answeredQuestions} / {questions.length} 回答済み
+                  {answeredQuestions} / {QESTIONS.length} 回答済み
                 </span>
                 <span>{Math.round(progress)}% 完了</span>
               </div>
