@@ -11,6 +11,7 @@ import { useState } from "react"
 import { useRouter } from "next/navigation"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Progress } from "@/components/ui/progress"
+import { useEffect } from "react"
 
 const QUESTIONS = [
   "仲間と一緒に楽しむとより楽しい",
@@ -517,7 +518,7 @@ export default function ProfilePage() {
       </div>
 
 
-export default function HobbyTest() {
+function HobbyTest() {
   const [answers, setAnswers] = useState<{ [key: number]: number }>({})
 
   const handleAnswer = (index: number, value: number) => {
@@ -530,7 +531,7 @@ export default function HobbyTest() {
 
   const sliderLabels = ["賛成", "やや賛成", "どちらでもない", "やや反対", "反対"]
 
-  export default function DiagnosisPage() {
+  function DiagnosisPage() {
     const [answers, setAnswers] = useState<number[]>(new Array(questions.length).fill(2))
     const router = useRouter()
 
@@ -569,7 +570,7 @@ export default function HobbyTest() {
         <Card className="bg-card border-border">
           <CardContent className="p-6">
             <div className="space-y-6 max-h-[60vh] overflow-y-auto pr-2">
-              {questions.map((question, questionIndex) => (
+              {QUESTIONS.map((question, questionIndex) => (
                 <div key={questionIndex} className="space-y-4 pb-6 border-b border-border last:border-b-0">
                   <div className="flex items-start gap-3">
                     <span className="flex-shrink-0 w-8 h-8 bg-primary text-primary-foreground rounded-full flex items-center justify-center text-sm font-medium">
