@@ -526,59 +526,92 @@ export default function HobbyTest() {
     console.log("診断結果", answers)
   }
 
-  const scale: record<number,number>={
-    1: 2,
-    2: 1,
-    3: 0,
-    4: -1,
-    5: -2,
+  const sliderLabels = ["賛成", "やや賛成", "どちらでもない", "やや反対", "反対"]
+
+export default function DiagnosisPage() {
+  const [answers, setAnswers] = useState<number[]>(new Array(questions.length).fill(2))
+  const router = useRouter()
+
+  const handleSliderChange = (questionIndex: number, value: number[]) => {
+    const newAnswers = [...answers]
+    newAnswers[questionIndex] = value[0]
+    setAnswers(newAnswers)
   }
-    
+
+  const handleSubmit = () => {
+    localStorage.setItem("hobbyDiagnosisAnswers", JSON.stringify(answers))
+    router.push("/results")
+  }
+
+  const answeredQuestions = answers.filter((answer) => answer !== 2).length
+  const progress = (answeredQuestions / questions.length) * 100
+
   return (
-    <div className="p-4">
-      <Card>
-        <CardContent className="p-4">
-          <h2 className="font-semibold mb-2">趣味診断テスト（全40問）</h2>
-          <p className="text-xs text-muted-foreground mb-3">
-            5段階で答えてください（賛成 → 反対）
-          </p>
+    <div className="min-h-screen bg-background p-4">
+      <div className="max-w-2xl mx-auto space-y-6">
+        <Card className="bg-card border-border">
+          <CardHeader>
+            <CardTitle className="text-2xl text-card-foreground text-center">趣味診断テスト</CardTitle>
+            <div className="space-y-2">
+              <div className="flex justify-between text-sm text-muted-foreground">
+                <span>
+                  {answeredQuestions} / {questions.length} 回答済み
+                </span>
+                <span>{Math.round(progress)}% 完了</span>
+              </div>
+              <Progress value={progress} className="w-full" />
+            </div>
+          </CardHeader>
+        </Card>
 
-          <div className="space-y-4">
-            {questions.map((q, i) => (
-              <Card key={i} className="p-4">
-                <CardContent>
-                  <p className="mb-2">{`Q${i + 1}. ${q}`}</p>
-                  <div className="flex items-center justify-between px-2">
-                  <span className="text-xs text-gray-500">反対</span>
-                  <Slider
-                    min={1}
-                    max={5}
-                    step={1}
-                    value={[Number(answers[i + 1]) || 3]}
-                    onValueChange={(val) => handleChange(i + 1, String(val[0]))}
-                    className="w-3/4"
-                  />
-                  <span className="text-xs text-gray-500">賛成</span>
+        <Card className="bg-card border-border">
+          <CardContent className="p-6">
+            <div className="space-y-6 max-h-[60vh] overflow-y-auto pr-2">
+              {questions.map((question, questionIndex) => (
+                <div key={questionIndex} className="space-y-4 pb-6 border-b border-border last:border-b-0">
+                  <div className="flex items-start gap-3">
+                    <span className="flex-shrink-0 w-8 h-8 bg-primary text-primary-foreground rounded-full flex items-center justify-center text-sm font-medium">
+                      {questionIndex + 1}
+                    </span>
+                    <h3 className="text-base font-medium text-card-foreground flex-1 pt-1">{question}</h3>
+                  </div>
+
+                  <div className="ml-11 space-y-3">
+                    <Slider
+                      value={[answers[questionIndex]]}
+                      onValueChange={(value) => handleSliderChange(questionIndex, value)}
+                      max={4}
+                      min={0}
+                      step={1}
+                      className="w-full"
+                    />
+                    <div className="flex justify-between text-xs text-muted-foreground px-2">
+                      {sliderLabels.map((label, index) => (
+                        <span key={index} className="text-center w-1/5">
+                          {label}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
                 </div>
-              </CardContent>
-            </Card>
-            ))}
-          </div>
+              ))}
+            </div>
 
-          <div className="flex justify-center mt-4">
-            <Button
-              onClick={calculate}
-              disabled={Object.keys(answers).length < QUESTIONS.length}
-            >
-              診断結果を見る
-            </Button>
-          </div>
-        </CardContent>
-      </Card>
+            <div className="mt-6 pt-6 border-t border-border">
+              <Button
+                onClick={handleSubmit}
+                className="w-full bg-accent hover:bg-accent/90 text-accent-foreground"
+                disabled={answeredQuestions === 0}
+              >
+                診断結果を見る ({answeredQuestions}/{questions.length})
+              </Button>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
     </div>
   )
 }
-
 
         {currentView === "media" && (
           <div className="p-4 text-center text-gray-500">
