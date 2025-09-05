@@ -545,7 +545,7 @@ export default function HobbyTest() {
                     min={1}
                     max={5}
                     step={1}
-                    className="w-3/4 custom-slider"
+                    className="w-3/4 relative"
                     onValueChange={(val) => handleAnswer(i + 1, val[0])}
                   />
                   <span className="text-xs text-gray-500">賛成</span>
