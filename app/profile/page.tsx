@@ -9,6 +9,12 @@ import { Input } from "@/components/ui/input"
 import { Avatar } from "@/components/ui/avatar"
 import { Badge } from "@/components/ui/badge"
 import { Textarea } from "@/components/ui/textarea"
+import { useState } from "react"
+import { useRouter } from "next/navigation"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { Button } from "@/components/ui/button"
+import { Slider } from "@/components/ui/slider"
+import { Progress } from "@/components/ui/progress"
 
 const QUESTIONS = [
   "仲間と一緒に楽しむとより楽しい",
