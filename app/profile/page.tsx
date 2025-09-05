@@ -535,23 +535,25 @@ export default function HobbyTest() {
             5段階で答えてください（賛成 → 反対）
           </p>
 
-          <div className="space-y-3 max-h-[60vh] overflow-auto pr-2">
-            {QUESTIONS.map((q, i) => (
-              <div key={i} className="mb-2">
-                <p className="text-sm font-medium">{`Q${i + 1}. ${q}`}</p>
-                <div className="flex items-center justify-between mt-2 px-1">
+          <div className="space-y-4">
+            {questions.map((q, i) => (
+              <Card key={i} className="p-4">
+                <CardContent>
+                  <p className="mb-2">{`Q${i + 1}. ${q}`}</p>
+                  <div className="flex items-center justify-between px-2">
                   <span className="text-xs text-gray-500">反対</span>
                   <Slider
-                    defaultValue={[3]}
                     min={1}
                     max={5}
                     step={1}
-                    className="w-3/4 relative"
-                    onValueChange={(val) => handleAnswer(i + 1, val[0])}
+                    value={[Number(answers[i + 1]) || 3]}
+                    onValueChange={(val) => handleChange(i + 1, String(val[0]))}
+                    className="w-3/4"
                   />
                   <span className="text-xs text-gray-500">賛成</span>
                 </div>
-              </div>
+              </CardContent>
+            </Card>
             ))}
           </div>
 
