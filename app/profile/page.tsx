@@ -515,7 +515,7 @@ export default function ProfilePage() {
           ))}
         </div>
       </div>
-
+)}
 
 export function HobbyTest() {
   const [answers, setAnswers] = useState<{ [key: number]: number }>({})
@@ -557,7 +557,7 @@ export function DiagnosisPage() {
             <div className="space-y-2">
               <div className="flex justify-between text-sm text-muted-foreground">
                 <span>
-                  {answeredQuestions} / {QESTIONS.length} 回答済み
+                  {answeredQuestions} / {QUESTIONS.length} 回答済み
                 </span>
                 <span>{Math.round(progress)}% 完了</span>
               </div>
