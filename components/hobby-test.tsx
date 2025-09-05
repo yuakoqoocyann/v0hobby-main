@@ -211,28 +211,18 @@ export default function HobbyTest() {
           <Card key={i} className="p-4">
             <CardContent>
               <p className="mb-2">{`Q${i + 1}. ${q}`}</p>
-              <RadioGroup onValueChange={(val) => handleChange(i + 1, val)} value={answers[i + 1] || ""}>
-                <div className="flex items-center space-x-2">
-                  <RadioGroupItem value="1" id={`q${i + 1}-1`} />
-                  <Label htmlFor={`q${i + 1}-1`}>賛成</Label>
-                </div>
-                <div className="flex items-center space-x-2">
-                  <RadioGroupItem value="2" id={`q${i + 1}-2`} />
-                  <Label htmlFor={`q${i + 1}-2`}>どちらかというと賛成</Label>
-                </div>
-                <div className="flex items-center space-x-2">
-                  <RadioGroupItem value="3" id={`q${i + 1}-3`} />
-                  <Label htmlFor={`q${i + 1}-3`}>どちらでもない</Label>
-                </div>
-                <div className="flex items-center space-x-2">
-                  <RadioGroupItem value="4" id={`q${i + 1}-4`} />
-                  <Label htmlFor={`q${i + 1}-4`}>どちらかというと反対</Label>
-                </div>
-                <div className="flex items-center space-x-2">
-                  <RadioGroupItem value="5" id={`q${i + 1}-5`} />
-                  <Label htmlFor={`q${i + 1}-5`}>反対</Label>
-                </div>
-              </RadioGroup>
+        <div className="flex items-center justify-between px-2">
+          <span className="text-xs text-gray-500">反対</span>
+          <Slider
+            min={1}
+            max={5}
+            step={1}
+            value={[Number(answers[i + 1]) || 3]}
+            onValueChange={(val) => handleChange(i + 1, String(val[0]))}
+            className="w-3/4"
+          />
+          <span className="text-xs text-gray-500">賛成</span>
+        </div>
             </CardContent>
           </Card>
         ))}
