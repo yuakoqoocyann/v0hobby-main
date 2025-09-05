@@ -518,7 +518,7 @@ export default function ProfilePage() {
       </div>
 
 
-function HobbyTest() {
+export function HobbyTest() {
   const [answers, setAnswers] = useState<{ [key: number]: number }>({})
 
   const handleAnswer = (index: number, value: number) => {
@@ -531,7 +531,7 @@ function HobbyTest() {
 
   const sliderLabels = ["賛成", "やや賛成", "どちらでもない", "やや反対", "反対"]
 
-  function DiagnosisPage() {
+  export function DiagnosisPage() {
     const [answers, setAnswers] = useState<number[]>(new Array(questions.length).fill(2))
     const router = useRouter()
 
