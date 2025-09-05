@@ -526,6 +526,14 @@ export default function HobbyTest() {
     console.log("診断結果", answers)
   }
 
+  const scale: record<number,number>={
+    1: 2,
+    2: 1,
+    3: 0,
+    4: -1,
+    5: -2,
+  }
+    
   return (
     <div className="p-4">
       <Card>
