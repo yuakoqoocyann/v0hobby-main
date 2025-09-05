@@ -605,7 +605,7 @@ export function DiagnosisPage() {
                 className="w-full bg-accent hover:bg-accent/90 text-accent-foreground"
                 disabled={answeredQuestions === 0}
               >
-                診断結果を見る ({answeredQuestions}/{questions.length})
+                診断結果を見る ({answeredQuestions}/{QUESTIONS.length})
               </Button>
             </div>
           </CardContent>
